@@ -18,9 +18,15 @@ class _TabsScreenState extends State<TabsScreen> {
     final isExisting = _favouriteMeals.contains(meal);
 
     if (isExisting) {
-      _favouriteMeals.remove(meal);
+      setState(() {
+        _favouriteMeals.remove(meal);
+      });
+      _showInfoMessage('This meal No longer Available in Favourite');
     } else {
-      _favouriteMeals.add(meal);
+      setState(() {
+        _favouriteMeals.add(meal);
+      });
+      _showInfoMessage('Meal Added to Favourite');
     }
   }
 
@@ -28,6 +34,15 @@ class _TabsScreenState extends State<TabsScreen> {
     setState(() {
       _selectedPageIndex = index;
     });
+  }
+
+  void _showInfoMessage(String message) {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+      ),
+    );
   }
 
   @override
@@ -38,7 +53,7 @@ class _TabsScreenState extends State<TabsScreen> {
     var activerPageTitle = 'Categories';
     if (_selectedPageIndex == 1) {
       activePage = MealsScreen(
-        meals: [],
+        meals: _favouriteMeals,
         onToggleFavourite: _toggleMealFavouriteScreen,
       );
       activerPageTitle = 'Your Favoutites';
