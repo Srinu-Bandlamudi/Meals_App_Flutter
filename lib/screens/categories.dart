@@ -8,7 +8,6 @@ import 'package:meals_app/models/category.dart';
 class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({
     super.key,
-  
     required this.availableMeals,
   });
 
@@ -24,7 +23,6 @@ class CategoriesScreen extends StatelessWidget {
         builder: (ctx) => MealsScreen(
           title: category.title,
           meals: filteredMeals,
-        
         ),
       ),
     );
